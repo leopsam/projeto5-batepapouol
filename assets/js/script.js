@@ -1,5 +1,7 @@
 let mensagens =[];
 let usuario = '';
+let para = 'Todos'
+let tipo = 'message'
 
 pegarMensagens();
 entrarSala();
@@ -16,7 +18,7 @@ function pegarMensagens(){
 }
 
 function respostaMsgChegou(resposta){
-    console.log('Resposta das mensagens chegou!!!')
+    //console.log('Resposta das mensagens chegou!!!')
     mensagens = resposta.data
     renderizarMensagem();
 }
@@ -26,8 +28,8 @@ function respostaMsgErro(){
 }
 
 function manterConexao(){
-    const nome = {
-        name: "Leonardo Sampaio"
+    let nome = {
+        name: usuario
     }
 
     const promesse = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", nome);
@@ -36,7 +38,7 @@ function manterConexao(){
 }
 
 function manterNomeCerto(resposta) {
-    console.log(`${usuario} continua na sala.`)
+    //console.log(`${usuario} continua na sala.`)
     pegarMensagens()
 }
 
@@ -45,12 +47,14 @@ function manterNomeErrado(erro) {
 }
 
 function entrarSala(){
-    const nome = {
-        name: "Leonardo Sampaio"
+    let nome = prompt('Qual é seu nome?')
+    usuario = nome;
+    const nomeServ = {
+        name: usuario
     }
-    usuario = nome.name;
+    
 
-    const promesse = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", nome);
+    const promesse = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", nomeServ);
     promesse.then(entradaNomeCerto);
     promesse.catch(entradaNomeErrado);
 }
@@ -65,8 +69,7 @@ function entradaNomeErrado(erro) {
     
     if ( erro.response.status === 400) {
         alert("Nome ja exixte");
-    }else{
-        alert("ocorreu um erro!");
+        entrarSala();
     }
 }
 
@@ -76,9 +79,9 @@ function enviarMensagens(){
     let novaMsg = 
         {
             from: usuario,
-            to: "Todos",
+            to: para,
             text: msg,
-            type: "message"
+            type: tipo
         }
 
 
@@ -90,14 +93,16 @@ function enviarMensagens(){
 }
 
 function enviarMsgDeuCerto(resposta) {
-    console.log(resposta.status)
-    console.log("Sua mensagem foi adicionada!")
     pegarMensagens();
+    console.log(resposta.status)
+    console.log("Sua mensagem foi adicionada!")    
+    let zerarImput = document.querySelector("input")
+    zerarImput.value = ""
 }
 
 function enviarMsgDeuErrado(erro) {
     alert("Desconectado!")
-    window.location.reload()
+    window.location.reload();
 }
 
 function renderizarMensagem(){
@@ -123,3 +128,4 @@ function rolarUltima(){
     elementoVisivel = elementoVisivel[elementoVisivel.length-1];
     elementoVisivel.scrollIntoView();
 }
+

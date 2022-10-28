@@ -38,10 +38,32 @@
             <div class="item mensagem">sai da sala</div>
         </div>-->
     </main>
+
+    <aside>
+        <h1>Escolha um contato para enviar mensagem:</h1>
+        <div class="item">
+            <img src="assets/img/people.svg" />
+            <p>Todos</p>
+        </div>
+        <div class="item">
+            <img src="assets/img/user.svg" />
+            <p>Todos</p>
+        </div>
+        <h1>Escolha a visibilidade:</h1>
+        <div class="item">
+            <img src="assets/img/cadeado.svg" />
+            <p>Público</p>
+        </div>
+        <div class="item">
+            <img src="assets/img/cadeado.svg" />
+            <p>Reservadamente</p>
+        </div>
+    </aside>
     <!---------------------------------------------------------------------------------------------->
     <footer>
         <div class="item">
             <input class="enviar-msg" type="text" placeholder="Escreva aqui...">
+            <p>Enviando para Todos <span>(reservadamente)</span></p>
         </div>
         <div class="item">
             <img class="botao" onclick="enviarMensagens()" src="assets/img/paper-plane-outline.svg" />
@@ -53,7 +75,7 @@
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
       
-    <script src="assets/js/script.js"></script> 
+    <script src="assets/js/script.js"></script>
     
 </body>
 </html>
