@@ -44,10 +44,10 @@ main{
     line-height: 16px;
     align-items: center;
 }
-.entrou, .saiu{
+.status{
     background-color:#DCDCDC;
 }
-.texto-mensagem{
+.message{
     background-color:#FFFFFF;
 }
 .msg .item{
@@ -91,7 +91,7 @@ footer .item{
     color: #000000;
     height: 30px;
 }
-.enviarMsg::placeholder{
+.enviar-msg::placeholder{
     border: none;
     font-family: 'Roboto';
     font-style: italic;
