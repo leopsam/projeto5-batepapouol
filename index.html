@@ -19,13 +19,18 @@
             <img onclick="botaoContatos()" class="pessoas" src="assets/img/people.svg" />
         </div>
     </header>
-    <!---------------------------------------------------------------------------------------------->
-    
+    <!---------------------------------------------------------------------------------------------->    
     <div class="login">
-        <img src="assets/img/logo-header.svg" />
-        <img class="load esconde" src="assets/img/loading.gif" />
-        <input calss="nome-login" type="text" placeholder="Digite seu nome" data-identifier="enter-name">
-        <button class="load" onclick="entrarSala()" data-identifier="start">Entrar</button>
+        <div class="container">
+            <img src="assets/img/logo-header.svg" />            
+            <input calss="nome-login" type="text" placeholder="Digite seu nome" data-identifier="enter-name">
+            <button onclick="entrarSala()" data-identifier="start">Entrar</button>
+        </div>
+        <div class="load esconde">
+            <img class="logo-load" src="assets/img/logo-header.svg" />
+            <img class="loading" src="assets/img/loading.gif" />
+            <p class="">Entrando...</p>
+        </div>
     </div>
     <!---------------------------------------------------------------------------------------------->
     <main>

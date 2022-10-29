@@ -37,14 +37,17 @@ header .pessoas{
     top: 0;
     left: 0;
     background-color: #FFFFFF;
-    z-index: 1;
+    z-index: 1; 
+    text-align: center;
+}
+.container{
     display: flex;
     flex-direction: column;
- 
     align-items: center;
 }
 
-.login img{
+
+.container img{
     margin-top: 80px;
     width: 130px;
     height: 92px;
@@ -79,7 +82,30 @@ header .pessoas{
     color: #AEAEAE;
     border: none;
 }
+.load{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+.load .loading{
+    margin-top: 80px;
+    width: 150px;
+    height: 150px;
+}
+
+.load .logo-load{
+    margin-top: 80px;
+    width: 130px;
+    height: 92px;
+}
+.load p{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+}
 /*--------------------------------------------------------*/
 
 main{

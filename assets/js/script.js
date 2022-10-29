@@ -32,8 +32,9 @@ function respostaMsgErro(){
     console.log('Resposta das mensagens deu ERRO!!!')
 }
 
-function entrarSala(){
-    let load = document.querySelector('.load')
+function entrarSala(){   
+
+    let load = document.querySelector('.container')
     load.classList.toggle('esconde')
 
 
@@ -52,10 +53,15 @@ function entrarSala(){
 function deley(){
     let telaLogin = document.querySelector('.login')
     telaLogin.classList.add('esconde')
+
+    
 }
 
 function entradaNomeCerto(resposta) {
     console.log(`${usuario} entou!!`)
+
+    let load1 = document.querySelector('.load')
+    load1.classList.toggle('esconde')
    
     pegarMensagens();
     setTimeout(deley, 2000);
