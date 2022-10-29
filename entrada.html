@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat UOL</title>
+    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css">    
+</head>
+<body>
+    <!---------------------------------------------------------------------------------------------->
+    <header>
+        <div class="item">
+            <img class="logo" src="assets/img/logo-header.svg" />
+        </div>
+        <div class="item">
+            <img onclick="botaoContatos()" class="pessoas" src="assets/img/people.svg" />
+        </div>
+    </header>
+    <!---------------------------------------------------------------------------------------------->
+    <main>
+    <!-- <div class="msg entrou">
+            <time class="item hora">(09:21:45)</time>
+            <strong class="item usuario">João</strong>
+            <div class="item mensagem">entra na sala...</div>
+        </div>
+        <div class="msg texto-mensagem">
+            <time class="item hora">(09:21:45)</time>            
+            <strong class="item usuario">João</strong>
+            <div class="item para">para <strong>Todos:</strong></div>
+            <div class="item mensagem">ola, bom dia</div>
+        </div>
+        <div class="msg saiu">
+            <time class="item hora">(09:21:45)</time>
+            <strong class="item usuario">João</strong>
+            <div class="item mensagem">sai da sala</div>
+        </div>-->
+    </main>
+    <div onclick="botaoContatos()" class="fundo esconde"></div> 
+
+    <aside class="esconde">   
+            <h1>Escolha um contato para enviar mensagem:</h1>
+            <div class="user">
+
+            </div>            
+            <h1>Escolha a visibilidade:</h1>
+            <div class="tipoMsg">
+                <div onclick="checkTipo(this)" class="item" data-identifier="visibility">
+                    <img src="assets/img/cadeado.svg" />
+                    <p>Público</p>
+                </div>
+                <div onclick="checkTipo(this)" class="item" data-identifier="visibility">
+                    <img src="assets/img/cadeado.svg" />
+                    <p>Reservadamente</p>
+                </div>
+            </div>
+        
+    </aside>
+    <!---------------------------------------------------------------------------------------------->
+    <footer>
+        <div class="item">
+            <input class="enviar-msg" type="text" placeholder="Escreva aqui...">
+            <p>Enviando para <span class="user-check">Todos</span> <span class="tipo-check"></span></p>
+        </div>
+        <div class="item">
+            <img class="botao" onclick="enviarMensagens()" src="assets/img/paper-plane-outline.svg" />
+        </div>
+    </footer>
+    <!---------------------------------------------------------------------------------------------->
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      
+    <script src="assets/js/script.js" type="module"></script>
+    
+</body>
+</html>

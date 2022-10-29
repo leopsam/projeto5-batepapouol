@@ -1,13 +1,13 @@
+
+
 let mensagens =[];
 let participantes = [];
-let usuario = '';
 let para = 'Todos'
 let tipo = 'message'
 let tipoTexto = '';
 
 buscarParticipantes();
 pegarMensagens();
-entrarSala();
 setInterval(pegarMensagens, 3000);
 setInterval(manterConexao, 5000);
 setInterval(buscarParticipantes, 10000);
@@ -48,33 +48,6 @@ function manterNomeCerto(resposta) {
 
 function manterNomeErrado(erro) {
     console.log(`${usuario} saiu da sala.`)
-}
-
-function entrarSala(){
-    let nome = prompt('Qual é seu nome?')
-    usuario = nome;
-    const nomeServ = {
-        name: usuario
-    }
-    
-
-    const promesse = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", nomeServ);
-    promesse.then(entradaNomeCerto);
-    promesse.catch(entradaNomeErrado);
-}
-
-function entradaNomeCerto(resposta) {
-    console.log(`${usuario} entou!!`)
-    pegarMensagens()
-}
-
-function entradaNomeErrado(erro) {
-    console.log(erro);
-    
-    if ( erro.response.status === 400) {
-        alert("Nome ja exixte");
-        entrarSala();
-    }
 }
 
 function enviarMensagens(){
