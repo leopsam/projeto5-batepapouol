@@ -1,12 +1,16 @@
 let mensagens =[];
+let participantes = [];
 let usuario = '';
 let para = 'Todos'
 let tipo = 'message'
+let tipoTexto = '';
 
+buscarParticipantes();
 pegarMensagens();
 entrarSala();
 setInterval(pegarMensagens, 3000);
 setInterval(manterConexao, 5000);
+setInterval(buscarParticipantes, 10000);
 
 
 function pegarMensagens(){
@@ -129,3 +133,96 @@ function rolarUltima(){
     elementoVisivel.scrollIntoView();
 }
 
+function botaoContatos(){
+    const botao1 = document.querySelector('aside');
+    const botao2 = document.querySelector('.fundo');
+    console.log(botao1)
+    console.log(botao2)
+    botao1.classList.toggle('esconde')
+    botao2.classList.toggle('esconde')
+}
+
+function buscarParticipantes(){
+    const promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants');
+    promessa.then(participantesOk);
+}
+
+function participantesOk(elemento){
+    
+    participantes = elemento.data;
+
+    const listaUsuarios = document.querySelector('.user');
+    listaUsuarios.innerHTML = `
+    <div onclick="check(this)" class="item" data-identifier="participant">
+        <img src="assets/img/people.svg" />
+        <p>Todos</p>
+    </div>
+    `;
+
+    for(let i=0; i<participantes.length; i++){
+        let userOn = participantes[i];
+
+        if(userOn.name != usuario){
+            listaUsuarios.innerHTML +=`
+            <div onclick="check(this)" class="item" data-identifier="participant">
+                <img src="assets/img/user.svg" />
+                <p>${userOn.name}</p>
+            </div>
+            `;
+        }
+    }
+}
+
+function check(pessoa){
+    const jaSelecionado = document.querySelector('.user .selecionado')
+    if(jaSelecionado !== null){
+        jaSelecionado.classList.remove('selecionado');
+    }
+    pessoa.classList.add('selecionado');
+
+    let pessoaVar = pessoa.querySelector('p')
+    para = pessoaVar.innerHTML
+
+    mostrandoDestino();
+}
+
+function checkTipo(tipoTela){
+    const jaSelecionado = document.querySelector('.tipoMsg .selecionado')
+    if(jaSelecionado !== null){
+        jaSelecionado.classList.remove('selecionado');
+    }
+    tipoTela.classList.add('selecionado');
+    
+    let tipoVar = tipoTela.querySelector('p')
+    
+
+    if(tipoVar.innerHTML === 'Público'){
+        tipo = 'message'
+        tipoTexto = 'Público'
+    }else if(tipoVar.innerHTML === 'Reservadamente'){
+        tipo = 'private_message'
+        tipoTexto = 'Reservadamente'
+    }
+
+    mostrandoDestino();
+}
+
+function mostrandoDestino(){
+    let destino = document.querySelector('.user-check')
+    destino.innerHTML = para
+
+    console.log(destino)
+
+    let tipoGarda = document.querySelector('.tipo-check')
+    tipoGarda.innerHTML = `(${tipoTexto})`
+
+    console.log(tipoTexto)
+
+}
+
+document.addEventListener("keypress", function(e) {
+    if(e.key === 'Enter') {    
+        var btn = document.querySelector('.botao');      
+      btn.click();    
+    }
+  });
