@@ -2,8 +2,9 @@
 
 let mensagens =[];
 let participantes = [];
-let para = 'Todos'
-let tipo = 'message'
+let usuario = '';
+let para = 'Todos';
+let tipo = 'message';
 let tipoTexto = '';
 
 buscarParticipantes();
@@ -29,6 +30,42 @@ function respostaMsgChegou(resposta){
 
 function respostaMsgErro(){
     console.log('Resposta das mensagens deu ERRO!!!')
+}
+
+function entrarSala(){
+    let load = document.querySelector('.load')
+    load.classList.toggle('esconde')
+
+
+    let nome = document.querySelector('.login input').value;
+
+    usuario = nome;
+    const nomeServ = {
+        name: usuario
+    }  
+    const promesse = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", nomeServ);
+    promesse.then(entradaNomeCerto);
+    promesse.catch(entradaNomeErrado);  
+
+   
+}
+function deley(){
+    let telaLogin = document.querySelector('.login')
+    telaLogin.classList.add('esconde')
+}
+
+function entradaNomeCerto(resposta) {
+    console.log(`${usuario} entou!!`)
+   
+    pegarMensagens();
+    setTimeout(deley, 2000);
+}
+
+function entradaNomeErrado(erro) {    
+    if ( erro.response.status === 400) {
+        alert("Nome ja exixte");
+        window.location.reload();
+    }
 }
 
 function manterConexao(){
@@ -71,9 +108,9 @@ function enviarMensagens(){
 
 function enviarMsgDeuCerto(resposta) {
     pegarMensagens();
-    console.log(resposta.status)
+    //console.log(resposta.status)
     console.log("Sua mensagem foi adicionada!")    
-    let zerarImput = document.querySelector("input")
+    let zerarImput = document.querySelector("footer input")
     zerarImput.value = ""
 }
 
@@ -109,8 +146,8 @@ function rolarUltima(){
 function botaoContatos(){
     const botao1 = document.querySelector('aside');
     const botao2 = document.querySelector('.fundo');
-    console.log(botao1)
-    console.log(botao2)
+    //console.log(botao1)
+    //console.log(botao2)
     botao1.classList.toggle('esconde')
     botao2.classList.toggle('esconde')
 }
@@ -184,12 +221,12 @@ function mostrandoDestino(){
     let destino = document.querySelector('.user-check')
     destino.innerHTML = para
 
-    console.log(destino)
+    //console.log(destino)
 
     let tipoGarda = document.querySelector('.tipo-check')
     tipoGarda.innerHTML = `(${tipoTexto})`
 
-    console.log(tipoTexto)
+    //console.log(tipoTexto)
 
 }
 
