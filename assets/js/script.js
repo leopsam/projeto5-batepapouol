@@ -1,11 +1,9 @@
-
-
 let mensagens =[];
 let participantes = [];
 let usuario = '';
 let para = 'Todos';
 let tipo = 'message';
-let tipoTexto = '';
+let tipoTexto = 'Público';
 
 buscarParticipantes();
 pegarMensagens();
@@ -13,13 +11,10 @@ setInterval(pegarMensagens, 3000);
 setInterval(manterConexao, 5000);
 setInterval(buscarParticipantes, 10000);
 
-
 function pegarMensagens(){
     const promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
     promessa.then(respostaMsgChegou);
-    promessa.catch(respostaMsgErro);
-
-    
+    promessa.catch(respostaMsgErro);    
 }
 
 function respostaMsgChegou(resposta){
@@ -37,24 +32,21 @@ function entrarSala(){
     let load = document.querySelector('.container')
     load.classList.toggle('esconde')
 
-
     let nome = document.querySelector('.login input').value;
 
     usuario = nome;
     const nomeServ = {
         name: usuario
     }  
+
     const promesse = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", nomeServ);
     promesse.then(entradaNomeCerto);
-    promesse.catch(entradaNomeErrado);  
-
-   
+    promesse.catch(entradaNomeErrado);     
 }
+
 function deley(){
     let telaLogin = document.querySelector('.login')
-    telaLogin.classList.add('esconde')
-
-    
+    telaLogin.classList.add('esconde')    
 }
 
 function entradaNomeCerto(resposta) {
@@ -65,6 +57,13 @@ function entradaNomeCerto(resposta) {
    
     pegarMensagens();
     setTimeout(deley, 2000);
+
+    document.addEventListener("keypress", function(e) {
+        if(e.key === 'Enter') {    
+            var btn = document.querySelector('.botao');      
+          btn.click();    
+        }
+      });
 }
 
 function entradaNomeErrado(erro) {    
@@ -96,20 +95,27 @@ function manterNomeErrado(erro) {
 function enviarMensagens(){
     let msg = document.querySelector('.enviar-msg').value;
 
-    let novaMsg = 
-        {
-            from: usuario,
-            to: para,
-            text: msg,
-            type: tipo
-        }
+    if(msg === ''){
+        alert(`Olá ${usuario}, Você não digitou a mensagem!`)
+    }else{
 
+        let novaMsg = 
+            {
+                from: usuario,
+                to: para,
+                text: msg,
+                type: tipo
+            };
 
-    let promese = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",novaMsg);
-    promese.then(enviarMsgDeuCerto);
-    promese.catch(enviarMsgDeuErrado);
+            console.log(novaMsg);
 
-    renderizarMensagem();
+        let promese = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",novaMsg);
+        promese.then(enviarMsgDeuCerto);
+        promese.catch(enviarMsgDeuErrado);
+    
+        renderizarMensagem();
+
+    }
 }
 
 function enviarMsgDeuCerto(resposta) {
@@ -128,9 +134,11 @@ function enviarMsgDeuErrado(erro) {
 function renderizarMensagem(){
     const listaMensagens = document.querySelector('main');
     listaMensagens.innerHTML = '';
-
+    
     for(let i=0; i<mensagens.length; i++){
         let mensagem = mensagens[i];
+
+        if((mensagem.type === 'private_message') && (mensagem.to === usuario)){
         listaMensagens.innerHTML +=`
             <div class="msg ${mensagem.type}">
                 <time class="item hora">(${mensagem.time})</time>
@@ -139,7 +147,18 @@ function renderizarMensagem(){
                 <div class="item mensagem">${mensagem.text}</div>
             </div>
         `;
+        } else if((mensagem.to === 'Todos') || (mensagem.type === 'message') || (mensagem.from === usuario)){
+        listaMensagens.innerHTML +=`
+            <div class="msg ${mensagem.type}">
+                <time class="item hora">(${mensagem.time})</time>
+                <strong class="item usuario">${mensagem.from}</strong>
+                <div class="item para">para <strong>${mensagem.to}:</strong></div>
+                <div class="item mensagem">${mensagem.text}</div>
+            </div>
+        `;
+        }
     }
+
     rolarUltima();
 }
 
@@ -197,7 +216,7 @@ function check(pessoa){
     pessoa.classList.add('selecionado');
 
     let pessoaVar = pessoa.querySelector('p')
-    para = pessoaVar.innerHTML
+    para = pessoaVar.innerHTML;
 
     mostrandoDestino();
 }
@@ -209,6 +228,8 @@ function checkTipo(tipoTela){
     }
     tipoTela.classList.add('selecionado');
     
+    //--------------------------------------------------------------------------------
+
     let tipoVar = tipoTela.querySelector('p')
     
 
@@ -235,10 +256,3 @@ function mostrandoDestino(){
     //console.log(tipoTexto)
 
 }
-
-document.addEventListener("keypress", function(e) {
-    if(e.key === 'Enter') {    
-        var btn = document.querySelector('.botao');      
-      btn.click();    
-    }
-  });
