@@ -140,7 +140,7 @@ function renderizarMensagem(){
 
         if((mensagem.type === 'private_message') && (mensagem.to === usuario)){
         listaMensagens.innerHTML +=`
-            <div class="msg ${mensagem.type}">
+            <div class="msg ${mensagem.type}" data-test="message">
                 <time class="item hora">(${mensagem.time})</time>
                 <strong class="item usuario">${mensagem.from}</strong>
                 <div class="item para">para <strong>${mensagem.to}:</strong></div>
@@ -149,7 +149,7 @@ function renderizarMensagem(){
         `;
         } else if((mensagem.to === 'Todos') || (mensagem.type === 'message') || (mensagem.from === usuario)){
         listaMensagens.innerHTML +=`
-            <div class="msg ${mensagem.type}">
+            <div class="msg ${mensagem.type}" data-test="message">
                 <time class="item hora">(${mensagem.time})</time>
                 <strong class="item usuario">${mensagem.from}</strong>
                 <div class="item para">para <strong>${mensagem.to}:</strong></div>
@@ -188,7 +188,7 @@ function participantesOk(elemento){
 
     const listaUsuarios = document.querySelector('.user');
     listaUsuarios.innerHTML = `
-    <div onclick="check(this)" class="item" data-identifier="participant">
+    <div onclick="check(this)" class="item" data-identifier="participant" data-test="all">
         <img src="assets/img/people.svg" />
         <p>Todos</p>
     </div>
@@ -199,7 +199,7 @@ function participantesOk(elemento){
 
         if(userOn.name != usuario){
             listaUsuarios.innerHTML +=`
-            <div onclick="check(this)" class="item" data-identifier="participant">
+            <div onclick="check(this)" class="item" data-identifier="participant" data-test="participant">
                 <img src="assets/img/user.svg" />
                 <p>${userOn.name}</p>
             </div>
